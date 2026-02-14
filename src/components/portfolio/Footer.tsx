@@ -4,7 +4,7 @@ import React from 'react';
 
 export const Footer = () => {
   return (
-    <footer id="contact" className="py-12 px-6 border-t border-white/5 relative bg-black/20">
+    <footer className="py-12 px-6 border-t border-white/5 relative bg-black/20">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-center items-center">
           <p className="text-muted-foreground text-sm">

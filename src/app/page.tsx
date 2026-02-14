@@ -5,6 +5,7 @@ import { Skills } from '@/components/portfolio/Skills';
 import { Projects } from '@/components/portfolio/Projects';
 import { Research } from '@/components/portfolio/Research';
 import { Accomplishments } from '@/components/portfolio/OtherSections';
+import { ContactForm } from '@/components/portfolio/ContactForm';
 import { Footer } from '@/components/portfolio/Footer';
 import { SocialSidebar } from '@/components/portfolio/SocialSidebar';
 import { Languages } from '@/components/portfolio/Languages';
@@ -78,6 +79,8 @@ export default function Home() {
       <Research />
       
       <Accomplishments />
+
+      <ContactForm />
       
       <Footer />
     </main>
