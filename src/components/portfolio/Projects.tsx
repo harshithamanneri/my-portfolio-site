@@ -4,28 +4,27 @@
 import React from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ArrowUpRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 const featuredProjects = [
   {
     id: 'project-diarization',
     title: 'Target Speaker Diarization System',
-    description: 'Developed a system to isolate a specific speaker from multi-speaker audio recordings using speaker embeddings and similarity-based scoring. Improved performance through advanced audio preprocessing and model optimization.',
+    description: 'Developed a deep learning–based system to isolate and identify specific speakers from multi-speaker audio recordings using speaker embeddings and similarity-based scoring. Improved diarization accuracy through advanced audio preprocessing and model optimization techniques.',
     tags: ['Python', 'Deep Learning', 'Audio Processing'],
     link: '#'
   },
   {
     id: 'project-stylehub',
-    title: 'StyleHub – Fashion Recommendation',
-    description: 'Built a full-stack fashion recommendation platform enabling personalized style exploration. Designed responsive UI components with React.js and implemented backend APIs for user preference handling.',
+    title: 'StyleHub – Fashion Recommendation Platform',
+    description: 'Built a full-stack fashion recommendation platform enabling personalized style exploration. Designed responsive UI components using React.js and implemented backend APIs with database integration for user preferences and product data.',
     tags: ['React.js', 'Node.js', 'MongoDB'],
     link: '#'
   },
   {
     id: 'project-log-analysis',
     title: 'AI-Powered Log Analysis System',
-    description: 'Developed an AI-driven system to automatically process large-scale log files. Implemented intelligent summarization to detect failures and root causes, generating structured timelines with actionable insights.',
+    description: 'Developed an AI-powered system to automatically process, analyze, and summarize large-scale log files. Implemented intelligent event detection to identify failures, root causes, and generate structured timelines with actionable recommendations.',
     tags: ['Python', 'NLP', 'AIOps', 'DevOps'],
     link: '#'
   }
@@ -49,10 +48,9 @@ export const Projects = () => {
           {featuredProjects.map((project) => {
             const imgData = PlaceHolderImages.find(img => img.id === project.id);
             return (
-              <a 
+              <div 
                 key={project.id} 
-                href={project.link}
-                className="group glass-card rounded-3xl overflow-hidden flex flex-col h-full border-white/5 hover:border-primary/40 hover:scale-[1.02] hover:shadow-[0_0_30px_-10px_rgba(124,58,237,0.3)] transition-all duration-500 relative"
+                className="group glass-card rounded-3xl overflow-hidden flex flex-col h-full border-white/5 hover:border-primary/40 hover:scale-[1.02] hover:shadow-[0_0_30px_-10px_rgba(124,58,237,0.3)] transition-all duration-500 relative cursor-pointer"
               >
                 {/* Image Section */}
                 <div className="relative h-56 w-full overflow-hidden">
@@ -67,11 +65,6 @@ export const Projects = () => {
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
                   
-                  {/* Top Right Arrow */}
-                  <div className="absolute top-4 right-4 p-2 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white/70 group-hover:text-primary group-hover:border-primary/40 transition-all">
-                    <ArrowUpRight className="w-5 h-5" />
-                  </div>
-
                   {/* Tags */}
                   <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
                     {project.tags.map(tag => (
@@ -87,11 +80,11 @@ export const Projects = () => {
                   <h4 className="text-xl font-headline font-bold text-white group-hover:text-primary transition-colors">
                     {project.title}
                   </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     {project.description}
                   </p>
                 </div>
-              </a>
+              </div>
             );
           })}
         </div>
