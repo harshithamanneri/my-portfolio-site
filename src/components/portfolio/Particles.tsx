@@ -21,7 +21,7 @@ interface ParticlesProps {
   className?: string;
 }
 
-const defaultColors = ['#ffffff', '#ffffff', '#ffffff'];
+const defaultColors = ['#ffffff', '#00FFFF', '#A020F0'];
 
 const hexToRgb = (hex: string) => {
   hex = hex.replace(/^#/, '');
@@ -59,20 +59,21 @@ const vertex = /* glsl */ `
     vColor = color;
     
     vec3 pos = position * uSpread;
-    pos.z *= 10.0;
+    pos.z *= 5.0; // Depth compression
     
     vec4 mPos = modelMatrix * vec4(pos, 1.0);
     float t = uTime;
     
-    // Slow movement based on random factors
-    mPos.x += sin(t * random.z + 6.28 * random.w) * mix(0.1, 0.8, random.x);
-    mPos.y += sin(t * random.y + 6.28 * random.x) * mix(0.1, 0.8, random.w);
-    mPos.z += sin(t * random.w + 6.28 * random.y) * mix(0.1, 0.8, random.z);
+    // Smooth random movement
+    mPos.x += sin(t * random.z + 6.28 * random.w) * mix(0.1, 1.2, random.x);
+    mPos.y += sin(t * random.y + 6.28 * random.x) * mix(0.1, 1.2, random.w);
+    mPos.z += sin(t * random.w + 6.28 * random.y) * mix(0.1, 1.2, random.z);
     
     vec4 mvPos = viewMatrix * mPos;
 
-    // Apply size randomness
-    gl_PointSize = (uBaseSize * (1.0 + uSizeRandomness * (random.x - 0.5))) / length(mvPos.xyz);
+    // Size calculation with brightness-based scaling
+    float sizeFactor = (uBaseSize * (1.2 + uSizeRandomness * (random.x - 0.5)));
+    gl_PointSize = sizeFactor / length(mvPos.xyz);
 
     gl_Position = projectionMatrix * mvPos;
   }
@@ -90,33 +91,39 @@ const fragment = /* glsl */ `
     vec2 uv = gl_PointCoord.xy;
     float d = length(uv - vec2(0.5));
     
-    // Twinkling effect based on time and random variable
-    float twinkle = mix(0.4, 1.0, 0.5 + 0.5 * sin(uTime * 3.0 + vRandom.y * 6.28));
+    // Twinkling effect: more pronounced for realism
+    float twinkle = mix(0.3, 1.3, 0.5 + 0.5 * sin(uTime * 2.0 + vRandom.y * 10.0));
     
     if(uAlphaParticles < 0.5) {
       if(d > 0.5) {
         discard;
       }
-      gl_FragColor = vec4(vColor * twinkle, 1.0);
+      // Bright core
+      gl_FragColor = vec4(vColor * twinkle * 1.5, 1.0);
     } else {
-      // Soft glow circular particle
-      float circle = smoothstep(0.5, 0.2, d) * 0.9 * twinkle;
-      gl_FragColor = vec4(vColor, circle);
+      // Soft glow circular particle with bright core
+      float core = smoothstep(0.15, 0.0, d) * 1.5;
+      float glow = smoothstep(0.5, 0.1, d) * 0.7;
+      float finalAlpha = (core + glow) * twinkle;
+      
+      if(finalAlpha < 0.01) discard;
+      
+      gl_FragColor = vec4(vColor * 1.2, finalAlpha);
     }
   }
 `;
 
 const Particles = ({
-  particleCount = 200,
-  particleSpread = 10,
-  speed = 0.1,
-  particleColors,
-  moveParticlesOnHover = false,
-  particleHoverFactor = 1,
-  alphaParticles = false,
-  particleBaseSize = 100,
-  sizeRandomness = 1,
-  cameraDistance = 20,
+  particleCount = 250,
+  particleSpread = 15,
+  speed = 0.08,
+  particleColors = defaultColors,
+  moveParticlesOnHover = true,
+  particleHoverFactor = 0.5,
+  alphaParticles = true,
+  particleBaseSize = 140,
+  sizeRandomness = 1.8,
+  cameraDistance = 25,
   disableRotation = false,
   pixelRatio = 1,
   className = ''
@@ -129,9 +136,10 @@ const Particles = ({
     if (!container) return;
 
     const renderer = new Renderer({
-      dpr: pixelRatio,
+      dpr: pixelRatio || window.devicePixelRatio,
       depth: false,
-      alpha: true
+      alpha: true,
+      antialias: true
     });
     const gl = renderer.gl;
     container.appendChild(gl.canvas);
@@ -158,7 +166,7 @@ const Particles = ({
     };
 
     if (moveParticlesOnHover) {
-      container.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mousemove', handleMouseMove);
     }
 
     const count = particleCount;
@@ -175,9 +183,11 @@ const Particles = ({
         z = Math.random() * 2 - 1;
         len = x * x + y * y + z * z;
       } while (len > 1 || len === 0);
+      
       const r = Math.cbrt(Math.random());
       positions.set([x * r, y * r, z * r], i * 3);
       randoms.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4);
+      
       const col = hexToRgb(palette[Math.floor(Math.random() * palette.length)]);
       colors.set(col, i * 3);
     }
@@ -194,12 +204,15 @@ const Particles = ({
       uniforms: {
         uTime: { value: 0 },
         uSpread: { value: particleSpread },
-        uBaseSize: { value: particleBaseSize * pixelRatio },
+        uBaseSize: { value: particleBaseSize * (pixelRatio || 1) },
         uSizeRandomness: { value: sizeRandomness },
         uAlphaParticles: { value: alphaParticles ? 1 : 0 }
       },
       transparent: true,
-      depthTest: false
+      depthTest: false,
+      // Additive blending for "glow" effect
+      // @ts-ignore
+      blendFunc: { src: gl.SRC_ALPHA, dst: gl.ONE }
     });
 
     const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
@@ -222,9 +235,9 @@ const Particles = ({
       }
 
       if (!disableRotation) {
-        particles.rotation.x = Math.sin(elapsed * 0.0001) * 0.05;
-        particles.rotation.y = Math.cos(elapsed * 0.0002) * 0.08;
-        (particles.rotation as any).z += 0.005 * speed;
+        particles.rotation.x = Math.sin(elapsed * 0.00005) * 0.03;
+        particles.rotation.y = Math.cos(elapsed * 0.0001) * 0.05;
+        (particles.rotation as any).z += 0.002 * speed;
       }
 
       renderer.render({ scene: particles, camera });
@@ -235,14 +248,13 @@ const Particles = ({
     return () => {
       window.removeEventListener('resize', resize);
       if (moveParticlesOnHover) {
-        container.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mousemove', handleMouseMove);
       }
       cancelAnimationFrame(animationFrameId);
       if (container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     particleCount,
     particleSpread,
