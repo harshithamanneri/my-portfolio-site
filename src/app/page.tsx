@@ -5,23 +5,10 @@ import { Skills } from '@/components/portfolio/Skills';
 import { Projects } from '@/components/portfolio/Projects';
 import { Research } from '@/components/portfolio/Research';
 import { Accomplishments } from '@/components/portfolio/OtherSections';
-import { AIAssistant } from '@/components/portfolio/AIAssistant';
 import { Footer } from '@/components/portfolio/Footer';
 import { SocialSidebar } from '@/components/portfolio/SocialSidebar';
 import { Languages } from '@/components/portfolio/Languages';
 import Particles from '@/components/portfolio/Particles';
-
-const PORTFOLIO_CONTENT = `
-Harshitha Manneri is a Computer Science undergraduate with a CGPA of 9.37.
-She specializes in AI Systems Engineer and Full-Stack Development.
-Core skills include AI, Deep Learning, PyTorch, TensorFlow, React.js, Next.js, AWS, OCI Gen AI, and Salesforce AI.
-Featured projects: Target Speaker Diarization System (Python, Deep Learning), StyleHub – Fashion Recommendation Platform (React, Node, MongoDB), AI-Powered Log Analysis System (Python, NLP, DevOps).
-Research: Authoring a paper on Facial Emotion Recognition for Enhancing Mental Wellness using CNNs and RNNs. The goal is early detection of stress, anxiety, and depression through computer vision and real-time analysis.
-Certifications: AWS Cloud Practitioner, OCI Gen AI, Salesforce AI Associate.
-Location: Hyderabad, India. 
-Accomplishments: Top 5% of Department, Winner of Regional Hackathons, Dean's List.
-Mission: Specialized in AI-driven systems and scalable software solutions.
-`;
 
 export default function Home() {
   return (
@@ -89,8 +76,6 @@ export default function Home() {
       </div>
       
       <Research />
-      
-      <AIAssistant portfolioContent={PORTFOLIO_CONTENT} />
       
       <Accomplishments />
       
