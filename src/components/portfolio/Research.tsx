@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { BookOpen, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Sparkles, CheckCircle2 } from 'lucide-react';
 
 export const Research = () => {
   const researchImg = PlaceHolderImages.find(img => img.id === 'research-facial');
@@ -18,7 +18,7 @@ export const Research = () => {
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-wider">
                 <Sparkles className="w-3 h-3" />
-                Ongoing Work
+                Ongoing Research Work
               </div>
               <h3 className="text-4xl md:text-5xl font-headline font-bold">
                 Facial Emotion Recognition for <span className="text-accent">Enhancing Mental Wellness</span>
@@ -44,11 +44,6 @@ export const Research = () => {
                 ))}
               </ul>
             </div>
-
-            <a href="#" className="inline-flex items-center gap-2 text-accent font-bold hover:gap-4 transition-all">
-              <BookOpen className="w-5 h-5" />
-              View Research Details
-            </a>
           </div>
 
           <div className="relative group">
