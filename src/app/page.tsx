@@ -1,4 +1,3 @@
-import { StarBackground } from '@/components/portfolio/StarBackground';
 import { Navbar } from '@/components/portfolio/Navbar';
 import { Hero } from '@/components/portfolio/Hero';
 import { Skills } from '@/components/portfolio/Skills';
@@ -7,9 +6,9 @@ import { Research } from '@/components/portfolio/Research';
 import { Accomplishments } from '@/components/portfolio/OtherSections';
 import { AIAssistant } from '@/components/portfolio/AIAssistant';
 import { Footer } from '@/components/portfolio/Footer';
+import { SocialSidebar } from '@/components/portfolio/SocialSidebar';
 import Particles from '@/components/portfolio/Particles';
 
-// This would ideally be fetched or imported from a central config
 const PORTFOLIO_CONTENT = `
 Harshitha Manneri is a Computer Science undergraduate with a CGPA of 9.37.
 She specializes in AI Systems Engineer and Full-Stack Development.
@@ -19,51 +18,50 @@ Research: Facial Emotion Recognition Using AI for Mental Wellness, focusing on h
 Certifications: AWS Cloud Practitioner, OCI Gen AI, Salesforce AI Associate.
 Location: Hyderabad, India. 
 Accomplishments: Top 5% of Department, Winner of Regional Hackathons, Dean's List.
-Volunteer work: Mentoring 50+ students in basic Python and ML.
 Mission: Specialized in AI-driven systems and scalable software solutions.
 `;
 
 export default function Home() {
   return (
     <main className="relative min-h-screen">
-      {/* Dynamic Global Background */}
-      <div className="fixed inset-0 -z-20 pointer-events-none w-full h-full">
+      {/* Premium Cosmic Background */}
+      <div className="fixed inset-0 -z-20 pointer-events-none w-full h-full opacity-60">
         <Particles
-          particleColors={["#ffffff"]}
-          particleCount={200}
-          particleSpread={10}
-          speed={0.1}
-          particleBaseSize={100}
+          particleColors={["#ffffff", "#7c3aed", "#06b6d4"]}
+          particleCount={120}
+          particleSpread={12}
+          speed={0.08}
+          particleBaseSize={80}
           moveParticlesOnHover
-          alphaParticles={false}
+          alphaParticles={true}
           disableRotation={false}
           pixelRatio={1}
         />
       </div>
       
-      <StarBackground />
       <Navbar />
+      <SocialSidebar />
       
       <Hero />
       
-      <div id="summary" className="py-12 px-6">
+      <div id="summary" className="py-24 px-6 relative">
         <div className="max-w-5xl mx-auto text-center space-y-12">
-          <div className="space-y-4">
-            <h2 className="text-sm uppercase tracking-[0.3em] text-primary font-bold">Mission Statement</h2>
-            <p className="text-3xl md:text-5xl font-headline font-medium italic text-white/90 leading-tight">
-              "To bridge the frontier of <span className="text-accent">Artificial Intelligence</span> with robust engineering, creating systems that solve real-world complexities with <span className="text-primary">elegance and scale</span>."
+          <div className="space-y-6">
+            <h2 className="text-[10px] uppercase tracking-[0.5em] text-primary font-bold">The Vision</h2>
+            <p className="text-4xl md:text-6xl font-headline font-bold leading-[1.1] text-white">
+              Engineering <span className="gradient-text-cyan">Intelligence</span> for the <span className="gradient-text-purple">Future</span>.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12">
             {[
-              { label: 'CGPA', value: '9.37' },
-              { label: 'Projects', value: '15+' },
-              { label: 'Certifications', value: '10+' }
+              { label: 'Academic Standing', value: '9.37 CGPA' },
+              { label: 'Core Projects', value: '15+ Built' },
+              { label: 'Industry Credentials', value: '10+ Certs' }
             ].map((stat, i) => (
-              <div key={i} className="glass-card p-8 rounded-3xl border-primary/10">
-                <p className="text-muted-foreground uppercase text-xs font-bold tracking-widest mb-2">{stat.label}</p>
-                <p className="text-4xl font-headline font-bold text-accent">{stat.value}</p>
+              <div key={i} className="glass-card p-10 rounded-[2rem] border-white/5">
+                <p className="text-muted-foreground uppercase text-[9px] font-bold tracking-[0.2em] mb-3">{stat.label}</p>
+                <p className="text-4xl font-headline font-bold text-white">{stat.value}</p>
               </div>
             ))}
           </div>
@@ -72,7 +70,10 @@ export default function Home() {
 
       <Skills />
       
-      <Projects />
+      <div className="relative">
+        <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+        <Projects />
+      </div>
       
       <Research />
       
