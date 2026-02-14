@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
-import { Download, ArrowRight, Sparkles } from 'lucide-react';
+import { Download, ArrowRight } from 'lucide-react';
 
 const ROLES = [
   "AI Systems Engineer",
@@ -75,19 +75,24 @@ export const Hero = () => {
         {/* Right Column */}
         <div className="order-1 lg:order-2 flex justify-center lg:justify-end fade-in-up" style={{ animationDelay: '0.2s' }}>
           <div className="relative animate-float">
-            {/* Elegant Glow Ring */}
-            <div className="absolute -inset-2 bg-gradient-to-tr from-primary via-accent to-primary rounded-full blur-md opacity-40 animate-pulse"></div>
-            <div className="relative w-64 h-64 md:w-[450px] md:h-[450px] rounded-full overflow-hidden border border-white/10 p-1 bg-background/50 backdrop-blur-sm">
-              {profileImg && (
-                <Image
-                  src={profileImg.imageUrl}
-                  alt="Harshitha Manneri"
-                  fill
-                  priority
-                  className="rounded-full object-cover p-2"
-                  data-ai-hint="professional headshot"
-                />
-              )}
+            {/* Elegant Subtle Pulse Glow Ring */}
+            <div className="absolute -inset-4 rounded-full border border-primary/10 animate-pulse-glow" />
+            <div className="absolute -inset-1.5 bg-gradient-to-tr from-primary/10 via-accent/10 to-primary/10 rounded-full blur-sm" />
+            
+            {/* Profile Image Container */}
+            <div className="relative w-64 h-64 md:w-[350px] md:h-[350px] rounded-full border border-white/5 bg-background/40 backdrop-blur-md flex items-center justify-center p-4">
+              <div className="relative w-full h-full rounded-full overflow-hidden border border-white/10">
+                {profileImg && (
+                  <Image
+                    src={profileImg.imageUrl}
+                    alt="Harshitha Manneri"
+                    fill
+                    priority
+                    className="object-cover"
+                    data-ai-hint="professional headshot"
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
