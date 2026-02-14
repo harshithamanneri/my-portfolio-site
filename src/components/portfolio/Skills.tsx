@@ -7,12 +7,7 @@ const skills = [
   {
     category: 'AI & Intelligent Systems',
     icon: <Brain className="w-6 h-6 text-primary" />,
-    items: ['Deep Learning', 'Neural Networks', 'Natural Language Processing', 'Computer Vision', 'PyTorch', 'TensorFlow']
-  },
-  {
-    category: 'Full-Stack Development',
-    icon: <Code2 className="w-6 h-6 text-accent" />,
-    items: ['React.js', 'Next.js', 'Node.js', 'TypeScript', 'Tailwind CSS', 'Redux']
+    items: ['Deep Learning', 'Deep Neural Architectures', 'NLP Systems', 'Computer Vision', 'PyTorch', 'TensorFlow']
   },
   {
     category: 'Cloud & Infrastructure',
@@ -20,9 +15,14 @@ const skills = [
     items: ['AWS', 'Google Cloud', 'OCI Gen AI', 'Docker', 'Kubernetes', 'CI/CD']
   },
   {
-    category: 'Data & Tools',
+    category: 'Full-Stack Engineering',
+    icon: <Code2 className="w-6 h-6 text-accent" />,
+    items: ['React.js', 'Next.js', 'Node.js', 'TypeScript', 'Tailwind CSS', 'Redux']
+  },
+  {
+    category: 'Data & Engineering Tools',
     icon: <Database className="w-6 h-6 text-green-400" />,
-    items: ['MongoDB', 'PostgreSQL', 'Redis', 'GraphQL', 'Git/GitHub', 'Agile/Scrum']
+    items: ['MongoDB', 'PostgreSQL', 'Redis', 'GraphQL', 'Git/GitHub', 'Agile Methodologies']
   }
 ];
 
@@ -32,9 +32,9 @@ export const Skills = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-sm uppercase tracking-[0.3em] text-accent font-bold">Expertise</h2>
-          <h3 className="text-4xl md:text-5xl font-headline font-bold">Marketable <span className="text-primary">Skills</span></h3>
+          <h3 className="text-4xl md:text-5xl font-headline font-bold">Technical <span className="text-primary">Expertise</span></h3>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Bridging the gap between cutting-edge Deep Learning research and production-ready scalable applications.
+            Designing scalable AI systems powered by Deep Learning and production-grade engineering.
           </p>
         </div>
 
