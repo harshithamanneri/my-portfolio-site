@@ -34,67 +34,57 @@ export const Hero = () => {
           setRoleIndex((roleIndex + 1) % ROLES.length);
         }
       }
-    }, isDeleting ? 50 : 100);
+    }, isDeleting ? 30 : 60);
 
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, roleIndex]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 lg:px-24 overflow-hidden pt-20">
-      {/* Background Ambience */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-7xl">
-        <div className="absolute top-1/4 left-1/4 w-[40rem] h-[40rem] bg-primary/5 rounded-full blur-[120px] -z-10 animate-pulse-glow" />
-        <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-accent/5 rounded-full blur-[100px] -z-10 animate-pulse-glow" />
-      </div>
-
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
-        {/* Left Column: Text & CTAs */}
-        <div className="space-y-10 order-2 lg:order-1 text-center lg:text-left">
-          <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-[0.2em] animate-in fade-in slide-in-from-bottom duration-700">
-              <Sparkles className="w-3 h-3" />
-              Available for Opportunities
-            </div>
-            <h1 className="text-6xl md:text-8xl font-headline font-bold tracking-tighter leading-[0.9] animate-in fade-in slide-in-from-left duration-1000">
-              Harshitha <br />
-              <span className="text-white/40">Manneri</span>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full z-10">
+        {/* Left Column */}
+        <div className="space-y-8 order-2 lg:order-1 text-center lg:text-left fade-in-up">
+          <div className="space-y-2">
+            <h1 className="text-7xl md:text-[100px] font-headline font-bold tracking-tight leading-[0.9]">
+              <span className="text-white">Harshitha</span><br />
+              <span className="gradient-text-purple">Manneri</span>
             </h1>
-            <div className="h-8 md:h-10 flex items-center justify-center lg:justify-start">
-              <p className="text-xl md:text-2xl font-headline font-medium text-accent typing-cursor">
+            <div className="h-10 flex items-center justify-center lg:justify-start">
+              <p className="text-xl md:text-2xl font-mono font-medium text-accent typing-cursor">
                 {displayText}
               </p>
             </div>
           </div>
 
-          <p className="max-w-xl mx-auto lg:mx-0 text-lg text-muted-foreground leading-relaxed animate-in fade-in slide-in-from-bottom duration-1000 delay-200">
+          <p className="max-w-xl mx-auto lg:mx-0 text-lg text-muted-foreground leading-relaxed">
             Building intelligent AI systems and scalable software that translate advanced research into impactful real-world solutions.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-4 animate-in fade-in slide-in-from-bottom duration-1000 delay-300">
-            <Button size="lg" className="rounded-full px-10 h-14 bg-primary hover:bg-primary/90 text-white font-bold group shadow-[0_10px_30px_-10px_rgba(124,58,237,0.5)]">
+          <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-4 pt-4">
+            <Button size="lg" className="rounded-2xl px-8 h-14 bg-primary hover:bg-primary/90 text-white font-bold group shadow-[0_10px_30px_-10px_rgba(124,58,237,0.5)] transition-all">
               <Download className="mr-2 w-4 h-4" />
               Download Resume
             </Button>
-            <Button size="lg" variant="outline" className="rounded-full px-10 h-14 border-white/10 hover:border-accent hover:text-accent font-bold group">
+            <Button size="lg" variant="outline" className="glass-button rounded-2xl px-8 h-14 font-bold group">
               View Projects
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         </div>
 
-        {/* Right Column: Profile Image */}
-        <div className="order-1 lg:order-2 flex justify-center lg:justify-end animate-in fade-in zoom-in duration-1000 delay-100">
-          <div className="relative">
-            {/* Glowing Ring Container */}
-            <div className="absolute -inset-1 bg-gradient-to-tr from-primary via-accent to-primary rounded-full glow-ring animate-spin-slow opacity-60" style={{ animationDuration: '15s' }}></div>
-            <div className="relative w-72 h-72 md:w-[450px] md:h-[450px] rounded-full overflow-hidden border-8 border-background p-1 bg-background">
+        {/* Right Column */}
+        <div className="order-1 lg:order-2 flex justify-center lg:justify-end fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="relative animate-float">
+            {/* Elegant Glow Ring */}
+            <div className="absolute -inset-2 bg-gradient-to-tr from-primary via-accent to-primary rounded-full blur-md opacity-40 animate-pulse"></div>
+            <div className="relative w-64 h-64 md:w-[450px] md:h-[450px] rounded-full overflow-hidden border border-white/10 p-1 bg-background/50 backdrop-blur-sm">
               {profileImg && (
                 <Image
                   src={profileImg.imageUrl}
                   alt="Harshitha Manneri"
                   fill
                   priority
-                  className="rounded-full object-cover hover:scale-105 transition-all duration-700"
+                  className="rounded-full object-cover p-2"
                   data-ai-hint="professional headshot"
                 />
               )}
