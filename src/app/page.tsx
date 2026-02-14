@@ -1,5 +1,6 @@
 import { Navbar } from '@/components/portfolio/Navbar';
 import { Hero } from '@/components/portfolio/Hero';
+import { Education } from '@/components/portfolio/Education';
 import { Skills } from '@/components/portfolio/Skills';
 import { Projects } from '@/components/portfolio/Projects';
 import { Research } from '@/components/portfolio/Research';
@@ -75,6 +76,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <Education />
 
       <Languages />
 
