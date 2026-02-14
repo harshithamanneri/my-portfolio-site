@@ -1,11 +1,11 @@
 "use client"
 
 import React from 'react';
-import { Brain, Code2, Cloud, Database, Cpu, Layout, Globe, ShieldCheck } from 'lucide-react';
+import { Brain, Code2, Cloud, Database } from 'lucide-react';
 
 const skills = [
   {
-    category: 'AI & Machine Learning',
+    category: 'AI & Intelligent Systems',
     icon: <Brain className="w-6 h-6 text-primary" />,
     items: ['Deep Learning', 'Neural Networks', 'Natural Language Processing', 'Computer Vision', 'PyTorch', 'TensorFlow']
   },
@@ -34,7 +34,7 @@ export const Skills = () => {
           <h2 className="text-sm uppercase tracking-[0.3em] text-accent font-bold">Expertise</h2>
           <h3 className="text-4xl md:text-5xl font-headline font-bold">Marketable <span className="text-primary">Skills</span></h3>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Bridging the gap between cutting-edge AI research and production-ready scalable applications.
+            Bridging the gap between cutting-edge Deep Learning research and production-ready scalable applications.
           </p>
         </div>
 

@@ -8,7 +8,7 @@ import { Download, ArrowRight } from 'lucide-react';
 
 const ROLES = [
   "AI Systems Engineer",
-  "Machine Learning Specialist",
+  "Deep Learning Specialist",
   "Full-Stack Developer"
 ];
 

@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import { Award, GraduationCap, Heart, CheckCircle, ExternalLink, Calendar } from 'lucide-react';
+import { Award, GraduationCap, Heart, CheckCircle, ExternalLink } from 'lucide-react';
 
 const certifications = [
   { name: 'AWS Certified Cloud Practitioner', issuer: 'Amazon Web Services', date: '2024' },
@@ -65,7 +65,7 @@ export const Accomplishments = () => {
             <h3 className="text-3xl font-headline font-bold">Volunteer Work</h3>
           </div>
           <div className="glass-card p-6 rounded-2xl">
-            <p className="text-muted-foreground italic">"Mentoring junior undergraduates in Python and basic Machine Learning concepts, helping over 50+ students bridge their technical gaps."</p>
+            <p className="text-muted-foreground italic">"Mentoring junior undergraduates in Python and Deep Learning concepts, helping over 50+ students bridge their technical gaps."</p>
           </div>
         </div>
       </div>
