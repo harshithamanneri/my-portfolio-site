@@ -7,6 +7,7 @@ import { Accomplishments } from '@/components/portfolio/OtherSections';
 import { AIAssistant } from '@/components/portfolio/AIAssistant';
 import { Footer } from '@/components/portfolio/Footer';
 import { SocialSidebar } from '@/components/portfolio/SocialSidebar';
+import { Languages } from '@/components/portfolio/Languages';
 import Particles from '@/components/portfolio/Particles';
 
 const PORTFOLIO_CONTENT = `
@@ -74,6 +75,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <Languages />
 
       <Skills />
       
