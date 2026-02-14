@@ -7,16 +7,22 @@
       "imageHint": "professional woman"
     },
     {
-      "id": "project-ai",
-      "description": "AI Systems Project",
-      "imageUrl": "https://images.unsplash.com/photo-1674027444485-cec3da58eef4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxuZXVyYWwlMjBuZXR3b3JrfGVufDB8fHx8MTc3MDk5OTUxOHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "neural network"
+      "id": "project-diarization",
+      "description": "Target Speaker Diarization System",
+      "imageUrl": "https://images.unsplash.com/photo-1557853197-aefb550b6fdc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhdWRpbyUyMHdhdmVmb3JtfGVufDB8fHx8MTc3MTEzOTU0NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "audio waveform"
     },
     {
-      "id": "project-fullstack",
-      "description": "Full Stack Application",
-      "imageUrl": "https://images.unsplash.com/photo-1731846584223-81977e156b2c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkYXNoYm9hcmQlMjBjb2RlfGVufDB8fHx8MTc3MTA2MTY4MHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "dashboard code"
+      "id": "project-stylehub",
+      "description": "StyleHub Fashion Recommendation Platform",
+      "imageUrl": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxmYXNoaW9uJTIwZGFzaGJvYXJkfGVufDB8fHx8MTc3MTEzOTU0NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fashion dashboard"
+    },
+    {
+      "id": "project-log-analysis",
+      "description": "AI-Powered Log Analysis System",
+      "imageUrl": "https://images.unsplash.com/photo-1551288049-bbbda536639a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsb2clMjBhbmFseXRpY3N8ZW58MHx8fHwxNzcxMTM5NTQ0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "log analytics"
     },
     {
       "id": "research-facial",
