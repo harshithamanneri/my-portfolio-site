@@ -63,17 +63,16 @@ const vertex = /* glsl */ `
     
     vec4 mPos = modelMatrix * vec4(pos, 1.0);
     float t = uTime;
-    mPos.x += sin(t * random.z + 6.28 * random.w) * mix(0.1, 1.5, random.x);
-    mPos.y += sin(t * random.y + 6.28 * random.x) * mix(0.1, 1.5, random.w);
-    mPos.z += sin(t * random.w + 6.28 * random.y) * mix(0.1, 1.5, random.z);
+    
+    // Slow movement based on random factors
+    mPos.x += sin(t * random.z + 6.28 * random.w) * mix(0.1, 0.8, random.x);
+    mPos.y += sin(t * random.y + 6.28 * random.x) * mix(0.1, 0.8, random.w);
+    mPos.z += sin(t * random.w + 6.28 * random.y) * mix(0.1, 0.8, random.z);
     
     vec4 mvPos = viewMatrix * mPos;
 
-    if (uSizeRandomness == 0.0) {
-      gl_PointSize = uBaseSize;
-    } else {
-      gl_PointSize = (uBaseSize * (1.0 + uSizeRandomness * (random.x - 0.5))) / length(mvPos.xyz);
-    }
+    // Apply size randomness
+    gl_PointSize = (uBaseSize * (1.0 + uSizeRandomness * (random.x - 0.5))) / length(mvPos.xyz);
 
     gl_Position = projectionMatrix * mvPos;
   }
@@ -91,14 +90,18 @@ const fragment = /* glsl */ `
     vec2 uv = gl_PointCoord.xy;
     float d = length(uv - vec2(0.5));
     
+    // Twinkling effect based on time and random variable
+    float twinkle = mix(0.4, 1.0, 0.5 + 0.5 * sin(uTime * 3.0 + vRandom.y * 6.28));
+    
     if(uAlphaParticles < 0.5) {
       if(d > 0.5) {
         discard;
       }
-      gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), 1.0);
+      gl_FragColor = vec4(vColor * twinkle, 1.0);
     } else {
-      float circle = smoothstep(0.5, 0.4, d) * 0.8;
-      gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), circle);
+      // Soft glow circular particle
+      float circle = smoothstep(0.5, 0.2, d) * 0.9 * twinkle;
+      gl_FragColor = vec4(vColor, circle);
     }
   }
 `;
@@ -216,15 +219,12 @@ const Particles = ({
       if (moveParticlesOnHover) {
         particles.position.x = -mouseRef.current.x * particleHoverFactor;
         particles.position.y = -mouseRef.current.y * particleHoverFactor;
-      } else {
-        particles.position.x = 0;
-        particles.position.y = 0;
       }
 
       if (!disableRotation) {
-        particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1;
-        particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15;
-        (particles.rotation as any).z += 0.01 * speed;
+        particles.rotation.x = Math.sin(elapsed * 0.0001) * 0.05;
+        particles.rotation.y = Math.cos(elapsed * 0.0002) * 0.08;
+        (particles.rotation as any).z += 0.005 * speed;
       }
 
       renderer.render({ scene: particles, camera });

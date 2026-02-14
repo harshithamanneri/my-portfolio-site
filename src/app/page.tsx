@@ -24,15 +24,17 @@ Mission: Specialized in AI-driven systems and scalable software solutions.
 export default function Home() {
   return (
     <main className="relative min-h-screen">
-      {/* Premium Cosmic Background */}
-      <div className="fixed inset-0 -z-20 pointer-events-none w-full h-full opacity-60">
+      {/* Dense Cosmic Background */}
+      <div className="fixed inset-0 -z-20 pointer-events-none w-full h-full">
         <Particles
-          particleColors={["#ffffff", "#7c3aed", "#06b6d4"]}
-          particleCount={120}
-          particleSpread={12}
-          speed={0.08}
-          particleBaseSize={80}
+          particleColors={["#ffffff", "#00FFFF", "#A020F0"]}
+          particleCount={250}
+          particleSpread={15}
+          speed={0.05}
+          particleBaseSize={120}
+          sizeRandomness={1.5}
           moveParticlesOnHover
+          particleHoverFactor={0.5}
           alphaParticles={true}
           disableRotation={false}
           pixelRatio={1}
