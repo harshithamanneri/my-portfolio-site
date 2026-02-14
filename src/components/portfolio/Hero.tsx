@@ -61,13 +61,17 @@ export const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-4 pt-4">
-            <Button size="lg" className="rounded-2xl px-8 h-14 bg-primary hover:bg-primary/90 text-white font-bold group shadow-[0_10px_30px_-10px_rgba(124,58,237,0.5)] transition-all">
-              <Download className="mr-2 w-4 h-4" />
-              Download Resume
+            <Button asChild size="lg" className="rounded-2xl px-8 h-14 bg-primary hover:bg-primary/90 text-white font-bold group shadow-[0_10px_30px_-10px_rgba(124,58,237,0.5)] transition-all">
+              <a href="/resume.pdf" download="Harshitha_Manneri_Resume.pdf">
+                <Download className="mr-2 w-4 h-4" />
+                Download Resume
+              </a>
             </Button>
-            <Button size="lg" variant="outline" className="glass-button rounded-2xl px-8 h-14 font-bold group">
-              View Projects
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <Button asChild size="lg" variant="outline" className="glass-button rounded-2xl px-8 h-14 font-bold group">
+              <a href="#projects">
+                View Projects
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
             </Button>
           </div>
         </div>
