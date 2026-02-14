@@ -67,7 +67,7 @@ export const Hero = () => {
           </div>
 
           <p className="max-w-xl mx-auto lg:mx-0 text-lg text-muted-foreground leading-relaxed animate-in fade-in slide-in-from-bottom duration-1000 delay-200">
-            Architecting the future with <span className="text-white font-semibold">AI-driven systems</span> and scalable cloud solutions. Bridging deep research with production-grade engineering to solve complex real-world challenges.
+            Building intelligent AI systems and scalable software that translate advanced research into impactful real-world solutions.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-4 animate-in fade-in slide-in-from-bottom duration-1000 delay-300">
@@ -94,7 +94,7 @@ export const Hero = () => {
                   alt="Harshitha Manneri"
                   fill
                   priority
-                  className="rounded-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
+                  className="rounded-full object-cover hover:scale-105 transition-all duration-700"
                   data-ai-hint="professional headshot"
                 />
               )}
