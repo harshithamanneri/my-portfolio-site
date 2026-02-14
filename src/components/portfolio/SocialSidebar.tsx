@@ -10,22 +10,28 @@ export const SocialSidebar = () => {
       icon: <Linkedin size={20} />, 
       href: 'https://linkedin.com/in/harshithamanneri', 
       label: 'LinkedIn',
-      color: 'hover:text-[#0077B5] hover:shadow-[0_0_15px_rgba(0,119,181,0.5)]',
-      bgColor: 'hover:bg-[#0077B5]/10'
+      color: 'text-[#0A66C2]',
+      glowColor: 'group-hover:shadow-[0_0_20px_-5px_#0A66C2]',
+      borderColor: 'group-hover:border-[#0A66C2]/50',
+      bgColor: 'group-hover:bg-[#0A66C2]/10'
     },
     { 
       icon: <Github size={20} />, 
       href: 'https://github.com/harshitha-manneri', 
       label: 'GitHub',
-      color: 'hover:text-white hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]',
-      bgColor: 'hover:bg-white/10'
+      color: 'text-[#E6EDF3]',
+      glowColor: 'group-hover:shadow-[0_0_20px_-5px_rgba(230,237,243,0.5)]',
+      borderColor: 'group-hover:border-[#E6EDF3]/50',
+      bgColor: 'group-hover:bg-[#E6EDF3]/10'
     },
     { 
       icon: <Mail size={20} />, 
       href: 'mailto:harshitha.manneri@email.com', 
       label: 'Email',
-      color: 'hover:text-accent hover:shadow-[0_0_15px_rgba(180,100,50,0.5)]',
-      bgColor: 'hover:bg-accent/10'
+      color: 'text-[#22D3EE]',
+      glowColor: 'group-hover:shadow-[0_0_20px_-5px_#22D3EE]',
+      borderColor: 'group-hover:border-[#22D3EE]/50',
+      bgColor: 'group-hover:bg-[#22D3EE]/10'
     },
   ];
 
@@ -39,17 +45,18 @@ export const SocialSidebar = () => {
           rel="noopener noreferrer"
           className={cn(
             "group relative flex items-center justify-center w-12 h-12 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 hover:-translate-y-1",
-            social.color,
+            social.glowColor,
+            social.borderColor,
             social.bgColor
           )}
           aria-label={social.label}
         >
-          <div className="text-muted-foreground transition-all duration-300">
+          <div className={cn("transition-all duration-300 text-muted-foreground", `group-hover:${social.color}`)}>
             {social.icon}
           </div>
           
           {/* Label Tooltip */}
-          <span className="absolute left-16 px-3 py-1.5 bg-black/80 backdrop-blur-md border border-white/10 rounded-lg text-[10px] font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap translate-x-2 group-hover:translate-x-0">
+          <span className="absolute left-16 px-3 py-1.5 bg-black/90 backdrop-blur-xl border border-white/10 rounded-lg text-[10px] font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap translate-x-2 group-hover:translate-x-0 text-white">
             {social.label}
           </span>
         </a>
