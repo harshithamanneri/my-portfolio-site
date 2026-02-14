@@ -26,7 +26,7 @@
     },
     {
       "id": "research-facial",
-      "description": "AI Facial Emotion Recognition Research",
+      "description": "AI Facial Emotion Recognition Research - Neural network overlay and landmark detection",
       "imageUrl": "https://images.unsplash.com/photo-1584800526920-35d8a0409deb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmYWNpYWwlMjBzY2FubmluZ3xlbnwwfHx8fDE3NzEwNjE2ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "facial scanning"
     }
