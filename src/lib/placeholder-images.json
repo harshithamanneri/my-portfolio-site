@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "profile",
+      "description": "Harshitha Manneri Profile",
+      "imageUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB3b21hbnxlbnwwfHx8fDE3NzA5ODI2ODJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "professional woman"
+    },
+    {
+      "id": "project-ai",
+      "description": "AI Systems Project",
+      "imageUrl": "https://images.unsplash.com/photo-1674027444485-cec3da58eef4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxuZXVyYWwlMjBuZXR3b3JrfGVufDB8fHx8MTc3MDk5OTUxOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "neural network"
+    },
+    {
+      "id": "project-fullstack",
+      "description": "Full Stack Application",
+      "imageUrl": "https://images.unsplash.com/photo-1731846584223-81977e156b2c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkYXNoYm9hcmQlMjBjb2RlfGVufDB8fHx8MTc3MTA2MTY4MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dashboard code"
+    },
+    {
+      "id": "research-facial",
+      "description": "Facial Emotion Recognition",
+      "imageUrl": "https://images.unsplash.com/photo-1584800526920-35d8a0409deb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmYWNpYWwlMjBzY2FubmluZ3xlbnwwfHx8fDE3NzEwNjE2ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "facial scanning"
+    }
+  ]
 }
