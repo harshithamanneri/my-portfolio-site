@@ -141,6 +141,7 @@ const Particles = ({
     const resize = () => {
       const width = container.clientWidth;
       const height = container.clientHeight;
+      if (width === 0 || height === 0) return;
       renderer.setSize(width, height);
       camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
     };
@@ -202,13 +203,18 @@ const Particles = ({
     const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
 
     let animationFrameId: number;
-    let lastTime = performance.now();
+    let lastTime = 0;
     let elapsed = 0;
 
     const update = (t: number) => {
       animationFrameId = requestAnimationFrame(update);
+      
+      if (lastTime === 0) {
+        lastTime = t;
+      }
       const delta = t - lastTime;
       lastTime = t;
+      
       elapsed += delta * speed;
 
       program.uniforms.uTime.value = elapsed * 0.001;
@@ -224,8 +230,7 @@ const Particles = ({
       if (!disableRotation) {
         particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1;
         particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15;
-        //@ts-ignore
-        particles.rotation.z += 0.01 * speed;
+        (particles.rotation as any).z += 0.01 * speed;
       }
 
       renderer.render({ scene: particles, camera });
@@ -243,7 +248,6 @@ const Particles = ({
         container.removeChild(gl.canvas);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     particleCount,
     particleSpread,
