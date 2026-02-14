@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import { Award, CheckCircle2, ExternalLink, Users } from 'lucide-react';
+import { Award, CheckCircle2, Users } from 'lucide-react';
 
 const certifications = [
   { 
@@ -63,7 +63,7 @@ export const Accomplishments = () => {
             {certifications.map((cert, i) => (
               <div 
                 key={i} 
-                className="glass-card p-6 rounded-2xl flex justify-between items-center group hover:border-primary/30 transition-all duration-300"
+                className="glass-card p-6 rounded-2xl flex items-center group hover:border-primary/30 transition-all duration-300"
               >
                 <div className="space-y-1">
                   <h4 className="font-bold text-white group-hover:text-primary transition-colors text-lg">
@@ -73,13 +73,6 @@ export const Accomplishments = () => {
                     {cert.issuer}
                   </p>
                 </div>
-                <a 
-                  href={cert.link}
-                  className="p-2 rounded-lg bg-white/5 border border-white/10 text-muted-foreground hover:text-accent hover:border-accent/50 transition-all"
-                  aria-label="View Certificate"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                </a>
               </div>
             ))}
           </div>
