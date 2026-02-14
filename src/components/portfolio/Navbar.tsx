@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { Menu, X, Cpu } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,13 +33,21 @@ export const Navbar = () => {
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/30 group-hover:border-accent/50 transition-colors">
-            <Cpu className="w-5 h-5 text-accent" />
+        {/* Elite Branding Pill */}
+        <a href="#" className="group relative">
+          <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-black/40 backdrop-blur-xl border border-white/10 shadow-2xl transition-all duration-500 group-hover:border-primary/40 group-hover:bg-black/60 group-hover:shadow-primary/10">
+            <span className="text-primary font-mono font-bold text-xs md:text-sm tracking-tighter opacity-60 group-hover:opacity-100 transition-opacity">
+              &lt;/&gt;
+            </span>
+            <span className="font-headline font-bold text-[10px] md:text-xs tracking-[0.25em] text-white/90 uppercase whitespace-nowrap">
+              Harshitha Manneri
+            </span>
+            <span className="text-primary font-mono font-bold text-xs md:text-sm tracking-tighter opacity-60 group-hover:opacity-100 transition-opacity">
+              &lt;/&gt;
+            </span>
           </div>
-          <span className="font-headline font-bold text-xl tracking-tight hidden sm:block">
-            Harshitha<span className="text-primary">.M</span>
-          </span>
+          {/* Subtle Glow Effect */}
+          <div className="absolute inset-0 rounded-full bg-primary/5 blur-xl opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
         </a>
 
         {/* Desktop Links */}
