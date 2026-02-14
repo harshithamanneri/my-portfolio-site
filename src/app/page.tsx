@@ -15,8 +15,8 @@ const PORTFOLIO_CONTENT = `
 Harshitha Manneri is a Computer Science undergraduate with a CGPA of 9.37.
 She specializes in AI Systems Engineer and Full-Stack Development.
 Core skills include AI, Deep Learning, PyTorch, TensorFlow, React.js, Next.js, AWS, OCI Gen AI, and Salesforce AI.
-Featured projects: AI Neural Assistant (Python, PyTorch), Scalable CRM (Next.js, Node.js).
-Research: Facial Emotion Recognition Using AI for Mental Wellness, focusing on high-accuracy real-time detection.
+Featured projects: Target Speaker Diarization System (Python, Deep Learning), StyleHub – Fashion Recommendation Platform (React, Node, MongoDB), AI-Powered Log Analysis System (Python, NLP, DevOps).
+Research: Authoring a paper on Facial Emotion Recognition for Enhancing Mental Wellness using CNNs and RNNs. The goal is early detection of stress, anxiety, and depression through computer vision and real-time analysis.
 Certifications: AWS Cloud Practitioner, OCI Gen AI, Salesforce AI Associate.
 Location: Hyderabad, India. 
 Accomplishments: Top 5% of Department, Winner of Regional Hackathons, Dean's List.
