@@ -1,3 +1,4 @@
+
 import { StarBackground } from '@/components/portfolio/StarBackground';
 import { Navbar } from '@/components/portfolio/Navbar';
 import { Hero } from '@/components/portfolio/Hero';
@@ -7,6 +8,7 @@ import { Research } from '@/components/portfolio/Research';
 import { Accomplishments } from '@/components/portfolio/OtherSections';
 import { AIAssistant } from '@/components/portfolio/AIAssistant';
 import { Footer } from '@/components/portfolio/Footer';
+import Particles from '@/components/portfolio/Particles';
 
 // This would ideally be fetched or imported from a central config
 const PORTFOLIO_CONTENT = `
@@ -25,6 +27,19 @@ Mission: Specialized in AI-driven systems and scalable software solutions.
 export default function Home() {
   return (
     <main className="relative min-h-screen">
+      <div className="fixed inset-0 -z-20 pointer-events-none">
+        <Particles
+          particleColors={["#ffffff", "#8B5CF6", "#06B6D4"]}
+          particleCount={250}
+          particleSpread={12}
+          speed={0.15}
+          particleBaseSize={100}
+          moveParticlesOnHover
+          alphaParticles={true}
+          disableRotation={false}
+          pixelRatio={1}
+        />
+      </div>
       <StarBackground />
       <Navbar />
       
