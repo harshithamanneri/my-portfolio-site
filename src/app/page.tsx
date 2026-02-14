@@ -1,4 +1,3 @@
-
 import { StarBackground } from '@/components/portfolio/StarBackground';
 import { Navbar } from '@/components/portfolio/Navbar';
 import { Hero } from '@/components/portfolio/Hero';
@@ -27,19 +26,21 @@ Mission: Specialized in AI-driven systems and scalable software solutions.
 export default function Home() {
   return (
     <main className="relative min-h-screen">
-      <div className="fixed inset-0 -z-20 pointer-events-none">
+      {/* Dynamic Global Background */}
+      <div className="fixed inset-0 -z-20 pointer-events-none w-full h-full">
         <Particles
-          particleColors={["#ffffff", "#8B5CF6", "#06B6D4"]}
-          particleCount={250}
-          particleSpread={12}
-          speed={0.15}
+          particleColors={["#ffffff"]}
+          particleCount={200}
+          particleSpread={10}
+          speed={0.1}
           particleBaseSize={100}
           moveParticlesOnHover
-          alphaParticles={true}
+          alphaParticles={false}
           disableRotation={false}
           pixelRatio={1}
         />
       </div>
+      
       <StarBackground />
       <Navbar />
       

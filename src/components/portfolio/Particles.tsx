@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useRef } from 'react';
@@ -203,18 +202,13 @@ const Particles = ({
     const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
 
     let animationFrameId: number;
-    let lastTime = 0;
+    let lastTime = performance.now();
     let elapsed = 0;
 
     const update = (t: number) => {
       animationFrameId = requestAnimationFrame(update);
-      
-      if (lastTime === 0) {
-        lastTime = t;
-      }
       const delta = t - lastTime;
       lastTime = t;
-      
       elapsed += delta * speed;
 
       program.uniforms.uTime.value = elapsed * 0.001;
@@ -248,6 +242,7 @@ const Particles = ({
         container.removeChild(gl.canvas);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     particleCount,
     particleSpread,
