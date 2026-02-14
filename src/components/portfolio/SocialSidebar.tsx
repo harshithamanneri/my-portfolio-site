@@ -10,27 +10,27 @@ export const SocialSidebar = () => {
       icon: <Linkedin size={20} />, 
       href: 'https://linkedin.com/in/harshithamanneri', 
       label: 'LinkedIn',
-      color: 'text-[#0A66C2]',
-      glowColor: 'group-hover:shadow-[0_0_20px_-5px_#0A66C2]',
-      borderColor: 'group-hover:border-[#0A66C2]/50',
+      iconColor: 'text-[#0A66C2]',
+      glowColor: 'group-hover:shadow-[0_0_25px_-5px_rgba(10,102,194,0.5)]',
+      borderColor: 'group-hover:border-[#0A66C2]/40',
       bgColor: 'group-hover:bg-[#0A66C2]/10'
     },
     { 
       icon: <Github size={20} />, 
       href: 'https://github.com/harshitha-manneri', 
       label: 'GitHub',
-      color: 'text-[#E6EDF3]',
-      glowColor: 'group-hover:shadow-[0_0_20px_-5px_rgba(230,237,243,0.5)]',
-      borderColor: 'group-hover:border-[#E6EDF3]/50',
-      bgColor: 'group-hover:bg-[#E6EDF3]/10'
+      iconColor: 'text-[#A855F7]',
+      glowColor: 'group-hover:shadow-[0_0_25px_-5px_rgba(168,85,247,0.5)]',
+      borderColor: 'group-hover:border-[#A855F7]/40',
+      bgColor: 'group-hover:bg-[#A855F7]/10'
     },
     { 
       icon: <Mail size={20} />, 
       href: 'mailto:harshitha.manneri@email.com', 
       label: 'Email',
-      color: 'text-[#22D3EE]',
-      glowColor: 'group-hover:shadow-[0_0_20px_-5px_#22D3EE]',
-      borderColor: 'group-hover:border-[#22D3EE]/50',
+      iconColor: 'text-[#22D3EE]',
+      glowColor: 'group-hover:shadow-[0_0_25px_-5px_rgba(34,211,238,0.5)]',
+      borderColor: 'group-hover:border-[#22D3EE]/40',
       bgColor: 'group-hover:bg-[#22D3EE]/10'
     },
   ];
@@ -44,14 +44,18 @@ export const SocialSidebar = () => {
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
-            "group relative flex items-center justify-center w-12 h-12 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 hover:-translate-y-1",
+            "group relative flex items-center justify-center w-12 h-12 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:z-50",
             social.glowColor,
             social.borderColor,
             social.bgColor
           )}
           aria-label={social.label}
         >
-          <div className={cn("transition-all duration-300 text-muted-foreground", `group-hover:${social.color}`)}>
+          <div className={cn(
+            "transition-all duration-300 flex items-center justify-center",
+            social.iconColor,
+            "group-hover:brightness-125 group-hover:scale-110"
+          )}>
             {social.icon}
           </div>
           
