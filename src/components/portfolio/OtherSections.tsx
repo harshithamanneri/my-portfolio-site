@@ -22,7 +22,7 @@ const certifications = [
   { 
     name: 'Oracle Cloud Infrastructure Generative AI Professional', 
     issuer: 'Oracle',
-    link: '#'
+    link: 'https://catalog-education.oracle.com/ords/certview/sharebadge?id=E6C8E248E78007A77EBE37577862E4374F6F4C28C36A67C4B3E7DB296B6E49F3'
   },
   { 
     name: 'AWS Academy Cloud Foundations', 
