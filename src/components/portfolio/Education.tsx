@@ -8,7 +8,8 @@ const educationData = [
     degree: 'B.Tech in Computer Science and Engineering',
     institution: 'KL University, Guntur',
     duration: '2023 – Present',
-    cgpa: '9.37',
+    value: '9.37',
+    label: 'CGPA',
     icon: <GraduationCap className="w-5 h-5 text-primary" />,
     level: 'primary'
   },
@@ -16,7 +17,8 @@ const educationData = [
     degree: 'Intermediate (MPC)',
     institution: 'Sri Chaitanya College, Telangana',
     duration: '2021 – 2023',
-    cgpa: '7.50',
+    value: '75%',
+    label: null,
     icon: <Book className="w-5 h-5 text-accent" />,
     level: 'accent'
   },
@@ -24,7 +26,8 @@ const educationData = [
     degree: 'Secondary School Certificate (SSC)',
     institution: 'Sri Chaitanya School, Andhra Pradesh',
     duration: '2020 – 2021',
-    cgpa: '9.9',
+    value: '99%',
+    label: null,
     icon: <School className="w-5 h-5 text-primary" />,
     level: 'primary'
   }
@@ -64,9 +67,13 @@ export const Education = () => {
                 </div>
                 <div className="bg-black/40 backdrop-blur-xl px-3 py-1 rounded-full border border-white/10 flex items-center gap-2">
                   <span className={`text-xs font-bold ${edu.level === 'primary' ? 'text-primary' : 'text-accent'}`}>
-                    {edu.cgpa}
+                    {edu.value}
                   </span>
-                  <span className="text-[8px] text-muted-foreground font-bold tracking-widest uppercase">CGPA</span>
+                  {edu.label && (
+                    <span className="text-[8px] text-muted-foreground font-bold tracking-widest uppercase">
+                      {edu.label}
+                    </span>
+                  )}
                 </div>
               </div>
 
