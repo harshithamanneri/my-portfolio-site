@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -24,6 +25,8 @@ export const Navbar = () => {
     { name: 'Certifications', href: '#certifications' },
     { name: 'Contact', href: '#contact' },
   ];
+
+  const emailAddress = "harshitha.manneri@email.com";
 
   return (
     <nav
@@ -63,8 +66,8 @@ export const Navbar = () => {
             </a>
           ))}
           <a
-            href="#contact"
-            className="px-5 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95"
+            href={`mailto:${emailAddress}`}
+            className="px-6 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_-5px_rgba(124,58,237,0.4)] hover:shadow-[0_0_25px_-2px_rgba(124,58,237,0.6)]"
           >
             Get In Touch
           </a>
@@ -81,21 +84,21 @@ export const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-white/5 md:hidden p-6 animate-in slide-in-from-top duration-300">
+        <div className="absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-white/5 md:hidden p-6 animate-in slide-in-from-top duration-300 shadow-2xl">
           <div className="flex flex-col gap-6 text-center">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-lg font-medium"
+                className="text-lg font-medium text-muted-foreground hover:text-white transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
               </a>
             ))}
             <a
-              href="#contact"
-              className="px-6 py-3 rounded-full bg-primary text-primary-foreground font-semibold"
+              href={`mailto:${emailAddress}`}
+              className="px-6 py-4 rounded-2xl bg-primary text-primary-foreground font-bold shadow-xl active:scale-95 transition-transform"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Get In Touch
