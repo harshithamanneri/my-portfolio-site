@@ -28,7 +28,7 @@ const featuredProjects = [
     title: 'AI-Powered Log Analysis System',
     description: 'Developed an AI-powered system to automatically process, analyze, and summarize large-scale log files. Implemented intelligent event detection to identify failures, root causes, and generate structured timelines with actionable recommendations.',
     tags: ['Python', 'NLP', 'AIOps', 'DevOps'],
-    link: '#'
+    link: 'https://github.com/kmkvamsi/LogSage-AI146'
   }
 ];
 
