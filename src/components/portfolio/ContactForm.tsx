@@ -27,6 +27,8 @@ export const ContactForm = () => {
   useEffect(() => {
     if (!user && auth) {
       signInAnonymously(auth).catch(err => {
+        // Errors during anonymous sign-in are logged but not shown to the user
+        // as they are typically transient network issues or configuration errors.
         console.error("Anonymous sign-in failed:", err);
       });
     }
@@ -35,7 +37,8 @@ export const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.email || !formData.message) {
+    // 1. Required Field Validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       toast({
         variant: "destructive",
         title: "Validation Error",
@@ -44,12 +47,18 @@ export const ContactForm = () => {
       return;
     }
 
-    if (!firestore) return;
+    if (!firestore) {
+      toast({
+        variant: "destructive",
+        title: "Configuration Error",
+        description: "Firestore is not initialized. Please try again later.",
+      });
+      return;
+    }
 
     setIsSubmitting(true);
 
     try {
-      // Create a reference with a generated ID
       const contactMessagesRef = collection(firestore, 'contactMessages');
       const newDocRef = doc(contactMessagesRef);
       
@@ -61,9 +70,11 @@ export const ContactForm = () => {
         timestamp: serverTimestamp(),
       };
 
-      // Non-blocking write following the specialized pattern
+      // 2. Non-blocking mutation pattern following framework guidelines.
+      // We do NOT 'await' this call directly to optimize for responsiveness and offline usage.
       setDoc(newDocRef, payload)
         .then(() => {
+          // 3. Success handling: Show message and clear form
           toast({
             title: "Success!",
             description: "Message sent successfully!",
@@ -71,6 +82,7 @@ export const ContactForm = () => {
           setFormData({ name: '', email: '', message: '' });
         })
         .catch(async (serverError) => {
+          // 4. Error handling: Emit contextual error for development and show destructive toast
           const permissionError = new FirestorePermissionError({
             path: newDocRef.path,
             operation: 'create',
@@ -80,11 +92,12 @@ export const ContactForm = () => {
           
           toast({
             variant: "destructive",
-            title: "Error",
-            description: "Failed to send message. Please try again later.",
+            title: "Submission Failed",
+            description: "Could not send message. Please check your connection and try again.",
           });
         })
         .finally(() => {
+          // 5. Reset loading state
           setIsSubmitting(false);
         });
 
@@ -92,8 +105,8 @@ export const ContactForm = () => {
       setIsSubmitting(false);
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "An unexpected error occurred.",
+        title: "Unexpected Error",
+        description: "An unexpected error occurred. Please try again.",
       });
     }
   };
@@ -140,6 +153,7 @@ export const ContactForm = () => {
                     onChange={handleChange}
                     placeholder="John Doe"
                     disabled={isSubmitting}
+                    autoComplete="name"
                     className="h-14 pl-12 bg-black/40 border-white/5 focus:border-primary/50 focus:ring-primary/20 rounded-2xl transition-all duration-300 hover:bg-black/60 group-focus-within/input:scale-[1.01] group-focus-within/input:shadow-[0_0_20px_-5px_rgba(124,58,237,0.3)]"
                   />
                 </div>
@@ -158,6 +172,7 @@ export const ContactForm = () => {
                     onChange={handleChange}
                     placeholder="john@example.com"
                     disabled={isSubmitting}
+                    autoComplete="email"
                     className="h-14 pl-12 bg-black/40 border-white/5 focus:border-accent/50 focus:ring-accent/20 rounded-2xl transition-all duration-300 hover:bg-black/60 group-focus-within/input:scale-[1.01] group-focus-within/input:shadow-[0_0_20px_-5px_rgba(0,255,255,0.2)]"
                   />
                 </div>
