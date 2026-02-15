@@ -21,7 +21,7 @@ const featuredProjects = [
     title: 'StyleHub – Fashion Recommendation Platform',
     description: 'Built a full-stack fashion recommendation platform enabling personalized style exploration. Designed responsive UI components using React.js and implemented backend APIs with database integration for user preferences and product data.',
     tags: ['React.js', 'Node.js', 'MongoDB'],
-    link: '#'
+    link: 'https://github.com/harshithamanneri/stylehub'
   },
   {
     id: 'project-log-analysis',
