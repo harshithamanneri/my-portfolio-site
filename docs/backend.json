@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "ContactMessage": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ContactMessage",
+      "type": "object",
+      "description": "Represents a message submitted through the portfolio's contact form, storing contact details and the message content.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ContactMessage entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name provided by the user when submitting the contact form."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address provided by the user for communication.",
+          "format": "email"
+        },
+        "message": {
+          "type": "string",
+          "description": "The detailed message content submitted by the user."
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "The server-generated timestamp indicating when the contact message was submitted.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "message",
+        "timestamp"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/contactMessages/{contactMessageId}",
+        "definition": {
+          "entityName": "ContactMessage",
+          "schema": {
+            "$ref": "#/backend/entities/ContactMessage"
+          },
+          "description": "Stores individual contact messages submitted through the public contact form. Each document is self-contained and includes the submitter's name, email, message content, and a server-generated timestamp. Authorization is public write access, typically restricted read access for administrators. Does not require denormalized authorization fields as it's a public submission.",
+          "params": [
+            {
+              "name": "contactMessageId",
+              "description": "The unique identifier for a specific contact message."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The recommended Firestore structure for the contact form is a single top-level collection named `contactMessages`. Each document within this collection will represent a `ContactMessage` entity, storing the `name`, `email`, `message`, and a server `timestamp` of submission. This approach adheres to core design principles by keeping the structure simple and explicit.\n\n**Authorization Independence:** This design inherently achieves Authorization Independence because each `ContactMessage` document is self-contained. It does not rely on any parent document's attributes for authorization. Since the contact form is public and intended for anonymous submissions, there are no hierarchical authorization dependencies or `get()` calls needed in security rules for writing. The document itself contains all necessary information (`name`, `email`, `message`, `timestamp`).\n\n**Querying for Authorization (QAPs):** The `contactMessages` collection is designed for public write access and likely administrative read access. Since there's no user-specific authorization for *submitting* these messages, the security rules for writes will simply validate the incoming data and ensure a server timestamp is used. For reading these messages (e.g., by an administrator), a query to `/contactMessages` would retrieve all submissions, as no `request.auth.uid` filtering is required or intended for general access to individual messages. The structural segregation of this collection ensures that all documents within it share the same security posture (public write, restricted read, typically via specific admin roles defined in a separate collection or within the admin application logic), simplifying rule writing. There is no expectation of `list` operations by authenticated users that would require complex filtering, thus supporting QAPs."
+  }
+}

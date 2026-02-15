@@ -1,0 +1,90 @@
+/**
+ * FIRESTORE SECURITY RULES
+ * 
+ * Core Philosophy:
+ * This ruleset implements a "Public Submission, Private Management" model. It is designed 
+ * specifically for a portfolio contact form where any visitor (authenticated via 
+ * anonymous or standard methods) can submit a message, but no visitor can read, 
+ * modify, or delete messages once they are sent.
+ * 
+ * Data Structure:
+ * - /contactMessages/{contactMessageId}: A flat, top-level collection containing 
+ *   individual message documents.
+ * 
+ * Key Security Decisions:
+ * 1. Public Write (Authenticated): To prevent completely anonymous spam while 
+ *    allowing "public" access, creation is permitted for any authenticated user 
+ *    (including Firebase Anonymous Auth).
+ * 2. Absolute Read Privacy: To protect the privacy of those who submit messages, 
+ *    the 'get' and 'list' operations are denied at the rules level. 
+ * 3. Immutability: Once a message is submitted, it cannot be updated or deleted 
+ *    by the submitter. This ensures the integrity of the communication history.
+ * 4. Relational Integrity: On creation, the rules enforce that the internal 'id' 
+ *    field of the document matches the Firestore Document ID.
+ * 
+ * Denormalization for Authorization:
+ * In this specific model, no denormalization is required because authorization is 
+ * not based on ownership or roles, but rather on the specific action of submission.
+ */
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /*************************************************************************
+     * GLOBAL HELPER FUNCTIONS
+     *************************************************************************/
+
+    /**
+     * @description Checks if the request is made by an authenticated user.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /*************************************************************************
+     * COLLECTION RULES
+     *************************************************************************/
+
+    /**
+     * @description Rules for the contactMessages collection. Allows public-style 
+     * submissions while keeping the data private and immutable.
+     * @path /contactMessages/{contactMessageId}
+     * @allow (create) if the user is signed in (including anonymous auth).
+     * @deny (get, list, update, delete) for all users to ensure privacy and integrity.
+     * @principle Public-write-only pattern for data ingestion.
+     */
+    match /contactMessages/{contactMessageId} {
+      
+      // Allow creation if the user is authenticated. 
+      // Enforces that the internal 'id' matches the document path for consistency.
+      allow create: if isSignedIn() && request.resource.data.id == contactMessageId;
+
+      // Public users should not be able to read or list messages.
+      // Administrative access is typically handled via Service Accounts or custom 
+      // admin claims not defined in this prototyping phase.
+      allow get: if false;
+      allow list: if false;
+
+      // Messages are considered append-only. No modifications or deletions allowed.
+      allow update: if false;
+      allow delete: if false;
+    }
+
+  }
+}
+
+/**
+ * PROTOTYPING MODE NOTE:
+ * These rules focus on authorization and relational integrity (path vs. data id). 
+ * General field types and optionality are not enforced here to allow for 
+ * rapid iteration of the ContactMessage schema.
+ */
+
+/**
+ * DEVELOPER WARNING:
+ * The 'create' rule currently requires authentication. Ensure your frontend 
+ * implementation uses Firebase Anonymous Authentication (signInAnonymously) 
+ * before attempting to write to this collection if users are not explicitly 
+ * logged in.
+ */
