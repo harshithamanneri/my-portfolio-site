@@ -1,13 +1,13 @@
 "use client"
 
 import React from 'react';
-import { Award, CheckCircle2, Users } from 'lucide-react';
+import { Award, CheckCircle2, Users, ExternalLink } from 'lucide-react';
 
 const certifications = [
   { 
     name: 'Multicloud Network Associate', 
     issuer: 'Aviatrix',
-    link: '#'
+    link: 'https://www.credly.com/badges/e9d2485b-cac5-4ea0-aa62-607d6d3a2704/linked_in_profile'
   },
   { 
     name: 'Salesforce Certified AI Associate', 
@@ -60,21 +60,45 @@ export const Accomplishments = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {certifications.map((cert, i) => (
-              <div 
-                key={i} 
-                className="glass-card p-6 rounded-2xl flex items-center group hover:border-primary/30 transition-all duration-300"
-              >
-                <div className="space-y-1">
-                  <h4 className="font-bold text-white group-hover:text-primary transition-colors text-lg">
-                    {cert.name}
-                  </h4>
-                  <p className="text-sm text-muted-foreground font-medium">
-                    {cert.issuer}
-                  </p>
+            {certifications.map((cert, i) => {
+              const CardContent = (
+                <>
+                  <div className="space-y-1">
+                    <h4 className="font-bold text-white group-hover:text-primary transition-colors text-lg">
+                      {cert.name}
+                    </h4>
+                    <p className="text-sm text-muted-foreground font-medium">
+                      {cert.issuer}
+                    </p>
+                  </div>
+                  {cert.link !== '#' && (
+                    <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-all duration-300 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0" />
+                  )}
+                </>
+              );
+
+              const cardClasses = "glass-card p-6 rounded-2xl flex items-center justify-between group hover:border-primary/30 transition-all duration-300";
+
+              if (cert.link !== '#') {
+                return (
+                  <a 
+                    key={i} 
+                    href={cert.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className={cardClasses}
+                  >
+                    {CardContent}
+                  </a>
+                );
+              }
+
+              return (
+                <div key={i} className={cardClasses}>
+                  {CardContent}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
