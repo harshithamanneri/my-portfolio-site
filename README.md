@@ -1,9 +1,61 @@
-<<<<<<< HEAD
-# Firebase Studio
+🌌 Harshitha Manneri – AI Systems Portfolio
 
-This is a NextJS starter in Firebase Studio.
+Welcome to my personal portfolio built with modern web technologies.
+This website showcases my projects, research, skills, and certifications in Artificial Intelligence and Software Development.
 
-To get started, take a look at src/app/page.tsx.
-=======
-# my_portfolio
->>>>>>> ea091ebe954bac76c6d11b2ae5b7034e860e304f
+👩‍💻 About Me
+
+I am a B.Tech student specializing in AI Systems, passionate about building intelligent, scalable, and impactful software solutions.
+
+My core interests include:
+
+Deep Learning
+
+Computer Vision
+
+Natural Language Processing
+
+Backend Engineering
+
+Cloud & DevOps
+
+I enjoy translating research ideas into practical real-world applications.
+
+🛠 Tech Stack
+💻 Frontend
+
+Next.js
+
+React.js
+
+TypeScript
+
+Tailwind CSS
+
+⚙️ Backend
+
+Node.js
+
+REST APIs
+
+☁️ Tools & Platforms
+
+Firebase Studio
+
+Git & GitHub
+
+VS Code
+
+✨ Features
+
+Modern dark-themed UI
+
+Responsive design (Mobile + Desktop)
+
+Smooth scrolling navigation
+
+Projects & Research showcase
+
+Certifications section
+
+Interactive contact section
