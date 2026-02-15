@@ -15,8 +15,6 @@ Computer Vision
 
 Natural Language Processing
 
-Backend Engineering
-
 Cloud & DevOps
 
 I enjoy translating research ideas into practical real-world applications.
@@ -39,8 +37,6 @@ Node.js
 REST APIs
 
 ☁️ Tools & Platforms
-
-Firebase Studio
 
 Git & GitHub
 
