@@ -5,6 +5,8 @@ import React from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Github, ExternalLink } from 'lucide-react';
 
 const featuredProjects = [
   {
@@ -12,7 +14,7 @@ const featuredProjects = [
     title: 'Target Speaker Diarization System',
     description: 'Developed a deep learning–based system to isolate and identify specific speakers from multi-speaker audio recordings using speaker embeddings and similarity-based scoring. Improved diarization accuracy through advanced audio preprocessing and model optimization techniques.',
     tags: ['Python', 'Deep Learning', 'Audio Processing'],
-    link: '#'
+    link: 'https://github.com/harshithamanneri/target-diarization-project'
   },
   {
     id: 'project-stylehub',
@@ -50,7 +52,7 @@ export const Projects = () => {
             return (
               <div 
                 key={project.id} 
-                className="group glass-card rounded-3xl overflow-hidden flex flex-col h-full border-white/5 hover:border-primary/40 hover:scale-[1.02] hover:shadow-[0_0_30px_-10px_rgba(124,58,237,0.3)] transition-all duration-500 relative cursor-pointer"
+                className="group glass-card rounded-3xl overflow-hidden flex flex-col h-full border-white/5 hover:border-primary/40 hover:scale-[1.02] hover:shadow-[0_0_30px_-10px_rgba(124,58,237,0.3)] transition-all duration-500 relative"
               >
                 {/* Image Section */}
                 <div className="relative h-56 w-full overflow-hidden">
@@ -80,9 +82,31 @@ export const Projects = () => {
                   <h4 className="text-xl font-headline font-bold text-white group-hover:text-primary transition-colors">
                     {project.title}
                   </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
                     {project.description}
                   </p>
+                  
+                  {project.link !== '#' && (
+                    <div className="pt-4 mt-auto">
+                      <Button 
+                        asChild 
+                        variant="outline" 
+                        size="sm" 
+                        className="w-full rounded-xl bg-white/5 border-white/10 hover:bg-primary hover:border-primary hover:text-white transition-all group/btn"
+                      >
+                        <a 
+                          href={project.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="flex items-center justify-center gap-2"
+                        >
+                          <Github className="w-4 h-4" />
+                          View Repository
+                          <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </a>
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
             );
