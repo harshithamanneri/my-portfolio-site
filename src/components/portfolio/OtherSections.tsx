@@ -17,7 +17,7 @@ const certifications = [
   { 
     name: 'Automation Anywhere Certified Essentials RPA Professional', 
     issuer: 'Automation Anywhere',
-    link: '#'
+    link: 'https://certificates.automationanywhere.com/4b4dbde1-e183-4f25-b721-05f6421b7b07#acc.cZAelR7N'
   },
   { 
     name: 'Oracle Cloud Infrastructure Generative AI Professional', 
