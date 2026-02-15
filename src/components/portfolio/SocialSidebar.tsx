@@ -17,7 +17,7 @@ export const SocialSidebar = () => {
     },
     { 
       icon: <Github size={20} />, 
-      href: 'https://github.com/harshitha-manneri', 
+      href: 'https://github.com/harshithamanneri', 
       label: 'GitHub',
       iconColor: 'text-[#A855F7]',
       glowColor: 'group-hover:shadow-[0_0_25px_-5px_rgba(168,85,247,0.5)]',
