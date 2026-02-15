@@ -40,7 +40,7 @@ export const Hero = () => {
   }, [displayText, isDeleting, roleIndex]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 lg:px-24 overflow-hidden pt-20">
+    <section id="summary" className="relative min-h-screen flex items-center justify-center px-6 lg:px-24 overflow-hidden pt-20">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full z-10">
         {/* Left Column */}
         <div className="space-y-8 order-2 lg:order-1 text-center lg:text-left fade-in-up">
