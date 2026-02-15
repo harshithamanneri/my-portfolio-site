@@ -27,7 +27,7 @@ const certifications = [
   { 
     name: 'AWS Academy Cloud Foundations', 
     issuer: 'AWS Academy',
-    link: '#'
+    link: 'https://www.credly.com/badges/e27e55e2-300d-4d3e-9094-ab22ebd9b618'
   }
 ];
 
