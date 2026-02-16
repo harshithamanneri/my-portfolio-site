@@ -7,9 +7,9 @@ export const metadata: Metadata = {
   title: 'Harshitha Manneri',
   description: 'AI Systems | Deep Learning Specialist',
   icons: {
-    icon: 'https://ik.imagekit.io/cgkpgpdr2/icon.ico?v=4',
-    shortcut: 'https://ik.imagekit.io/cgkpgpdr2/icon.ico?v=4',
-    apple: 'https://ik.imagekit.io/cgkpgpdr2/icon.ico?v=4',
+    icon: 'https://ik.imagekit.io/cgkpgpdr2/icon.ico?v=5',
+    shortcut: 'https://ik.imagekit.io/cgkpgpdr2/icon.ico?v=5',
+    apple: 'https://ik.imagekit.io/cgkpgpdr2/icon.ico?v=5',
   },
 };
 
