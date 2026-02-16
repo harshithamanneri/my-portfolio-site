@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   description: 'Elite portfolio of Harshitha Manneri, specializing in AI systems, deep learning, and scalable full-stack architectures.',
   icons: {
     icon: 'https://ik.imagekit.io/cgkpgpdr2/professional_photo.jpg?updatedAt=1771062645167',
+    shortcut: 'https://ik.imagekit.io/cgkpgpdr2/professional_photo.jpg?updatedAt=1771062645167',
+    apple: 'https://ik.imagekit.io/cgkpgpdr2/professional_photo.jpg?updatedAt=1771062645167',
   },
 };
 
