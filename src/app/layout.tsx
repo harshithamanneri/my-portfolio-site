@@ -5,7 +5,11 @@ import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'Harshitha Manneri | AI Systems Engineer',
-  description: 'Elite portfolio of Harshitha Manneri, specializing in AI systems, deep learning, and scalable full-stack architectures.',
+  description:
+    'Elite portfolio of Harshitha Manneri, specializing in AI systems, deep learning, and scalable full-stack architectures.',
+  icons: {
+    icon: '/icon.png?v=1',
+  },
 };
 
 export default function RootLayout({
