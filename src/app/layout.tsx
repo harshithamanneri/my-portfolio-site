@@ -6,6 +6,9 @@ import { Toaster } from '@/components/ui/toaster';
 export const metadata: Metadata = {
   title: 'Harshitha Manneri | AI Systems Engineer',
   description: 'Elite portfolio of Harshitha Manneri, specializing in AI systems, deep learning, and scalable full-stack architectures.',
+  icons: {
+    icon: 'https://ik.imagekit.io/cgkpgpdr2/professional_photo.jpg?updatedAt=1771062645167',
+  },
 };
 
 export default function RootLayout({
