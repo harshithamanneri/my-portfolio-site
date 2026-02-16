@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -15,8 +16,8 @@ import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 
 export const ContactForm = () => {
-  const { firestore } = useFirestore();
-  const { auth } = useAuth();
+  const firestore = useFirestore();
+  const auth = useAuth();
   const { user } = useUser();
   const { toast } = useToast();
 
