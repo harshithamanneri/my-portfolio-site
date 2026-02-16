@@ -6,6 +6,9 @@ import { Toaster } from '@/components/ui/toaster';
 export const metadata: Metadata = {
   title: 'Harshitha Manneri',
   description: 'AI Systems | Deep Learning Specialist',
+  icons: {
+    icon: '/icon.png',
+  },
 };
 
 export default function RootLayout({
