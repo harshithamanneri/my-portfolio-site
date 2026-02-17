@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -55,7 +56,25 @@ export const ContactForm = () => {
 
     setIsSubmitting(true);
 
+    // EmailJS configuration from environment variables
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+    // Debugging: Log configuration status (without exposing full keys)
+    console.log("EmailJS Debug Status:", {
+      serviceIdProvided: !!serviceId,
+      templateIdProvided: !!templateId,
+      publicKeyProvided: !!publicKey,
+      serviceIdPrefix: serviceId?.substring(0, 4) + "...",
+      publicKeyPrefix: publicKey?.substring(0, 4) + "..."
+    });
+
     try {
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error("EmailJS environment variables are missing. Please check your .env file.");
+      }
+
       const contactMessagesRef = collection(firestore, 'contactMessages');
       const newDocRef = doc(contactMessagesRef);
       
@@ -67,7 +86,7 @@ export const ContactForm = () => {
         timestamp: serverTimestamp(),
       };
 
-      // Save to Firestore (Non-blocking)
+      // 1. Save to Firestore (Non-blocking as per guidelines)
       setDoc(newDocRef, payload)
         .catch(async (serverError) => {
           const permissionError = new FirestorePermissionError({
@@ -78,25 +97,18 @@ export const ContactForm = () => {
           errorEmitter.emit('permission-error', permissionError);
         });
 
-      // EmailJS configuration from environment variables
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+      // 2. Send email via EmailJS (Await this to confirm success for the UI)
+      // Using exact template variable names: {{name}}, {{email}}, {{message}}
+      const emailParams = {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      };
 
-      if (!serviceId || !templateId || !publicKey) {
-        throw new Error("EmailJS configuration missing. Please ensure variables are set in .env.");
-      }
-
-      // Send email via EmailJS
       await emailjs.send(
         serviceId,
         templateId,
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formData.message,
-          reply_to: formData.email,
-        },
+        emailParams,
         publicKey
       );
 
@@ -107,10 +119,11 @@ export const ContactForm = () => {
       setFormData({ name: '', email: '', message: '' });
 
     } catch (error: any) {
+      console.error("EmailJS error:", error);
       toast({
         variant: "destructive",
         title: "Submission Failed",
-        description: error.message || "Could not send your message. Please check your connection.",
+        description: error.message || "Could not send your message. Please check your connection and EmailJS settings.",
       });
     } finally {
       setIsSubmitting(false);
