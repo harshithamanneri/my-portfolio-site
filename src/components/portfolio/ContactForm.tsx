@@ -28,7 +28,7 @@ export const ContactForm = () => {
   useEffect(() => {
     if (!user && auth) {
       signInAnonymously(auth).catch(err => {
-        // Silently handle auth initialization
+        // Silently handle anonymous auth initialization
       });
     }
   }, [user, auth]);
@@ -36,6 +36,7 @@ export const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Basic local validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       toast({
         variant: "destructive",
@@ -45,37 +46,11 @@ export const ContactForm = () => {
       return;
     }
 
-    if (!firestore) {
-      toast({
-        variant: "destructive",
-        title: "Configuration Error",
-        description: "Firestore is not initialized. Please try again later.",
-      });
-      return;
-    }
-
     setIsSubmitting(true);
 
-    // EmailJS configuration from environment variables
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
-    // Debugging: Log configuration status (without exposing full keys)
-    console.log("EmailJS Debug Status:", {
-      serviceIdProvided: !!serviceId,
-      templateIdProvided: !!templateId,
-      publicKeyProvided: !!publicKey,
-      serviceIdPrefix: serviceId?.substring(0, 4) + "...",
-      publicKeyPrefix: publicKey?.substring(0, 4) + "..."
-    });
-
     try {
-      if (!serviceId || !templateId || !publicKey) {
-        throw new Error("EmailJS environment variables are missing. Please check your .env file.");
-      }
-
-      const contactMessagesRef = collection(firestore, 'contactMessages');
+      // 1. Prepare Firestore document
+      const contactMessagesRef = collection(firestore!, 'contactMessages');
       const newDocRef = doc(contactMessagesRef);
       
       const payload = {
@@ -86,7 +61,7 @@ export const ContactForm = () => {
         timestamp: serverTimestamp(),
       };
 
-      // 1. Save to Firestore (Non-blocking as per guidelines)
+      // 2. Save to Firestore (Non-blocking background call)
       setDoc(newDocRef, payload)
         .catch(async (serverError) => {
           const permissionError = new FirestorePermissionError({
@@ -97,33 +72,36 @@ export const ContactForm = () => {
           errorEmitter.emit('permission-error', permissionError);
         });
 
-      // 2. Send email via EmailJS (Await this to confirm success for the UI)
-      // Using exact template variable names: {{name}}, {{email}}, {{message}}
-      const emailParams = {
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-      };
-
+      // 3. Send email via EmailJS using environment variables
+      // Template variables: {{name}}, {{email}}, {{message}}
       await emailjs.send(
-        serviceId,
-        templateId,
-        emailParams,
-        publicKey
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       );
 
+      // 4. Success handling
       toast({
         title: "Success!",
         description: "Your message has been sent successfully!",
       });
+
+      // 5. Reset form only after successful email transmission
       setFormData({ name: '', email: '', message: '' });
 
     } catch (error: any) {
-      console.error("EmailJS error:", error);
+      // 6. Detailed error logging as requested
+      console.error("EmailJS Error:", error);
+      
       toast({
         variant: "destructive",
         title: "Submission Failed",
-        description: error.message || "Could not send your message. Please check your connection and EmailJS settings.",
+        description: error?.text || error?.message || "An unexpected error occurred. Please check your connection.",
       });
     } finally {
       setIsSubmitting(false);
