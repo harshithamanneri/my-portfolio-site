@@ -14,6 +14,7 @@ import { signInAnonymously } from 'firebase/auth';
 import { useToast } from '@/hooks/use-toast';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+import emailjs from 'emailjs-com';
 
 export const ContactForm = () => {
   const firestore = useFirestore();
@@ -71,44 +72,59 @@ export const ContactForm = () => {
         timestamp: serverTimestamp(),
       };
 
-      // 2. Non-blocking mutation pattern following framework guidelines.
-      // We do NOT 'await' this call directly to optimize for responsiveness and offline usage.
+      // 2. Firestore mutation (non-blocking)
       setDoc(newDocRef, payload)
-        .then(() => {
-          // 3. Success handling: Show message and clear form
-          toast({
-            title: "Success!",
-            description: "Message sent successfully!",
-          });
-          setFormData({ name: '', email: '', message: '' });
-        })
         .catch(async (serverError) => {
-          // 4. Error handling: Emit contextual error for development and show destructive toast
           const permissionError = new FirestorePermissionError({
             path: newDocRef.path,
             operation: 'create',
             requestResourceData: payload,
           });
           errorEmitter.emit('permission-error', permissionError);
-          
-          toast({
-            variant: "destructive",
-            title: "Submission Failed",
-            description: "Could not send message. Please check your connection and try again.",
-          });
-        })
-        .finally(() => {
-          // 5. Reset loading state
-          setIsSubmitting(false);
         });
 
-    } catch (error) {
-      setIsSubmitting(false);
+      // 3. EmailJS notification
+      // These environment variables must be defined in your .env file
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '';
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '';
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '';
+
+      if (!serviceId || !templateId || !publicKey) {
+        console.error("EmailJS configuration missing in environment variables.");
+        // We still show an error to the user if the email can't be sent
+        throw new Error("Email configuration missing.");
+      }
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          reply_to: formData.email,
+        },
+        publicKey
+      );
+
+      // 4. Success handling: Show message and clear form only after email is sent
+      toast({
+        title: "Success!",
+        description: "Your message has been sent successfully!",
+      });
+      setFormData({ name: '', email: '', message: '' });
+
+    } catch (error: any) {
+      console.error("Submission failed:", error);
       toast({
         variant: "destructive",
-        title: "Unexpected Error",
-        description: "An unexpected error occurred. Please try again.",
+        title: "Submission Failed",
+        description: error.message === "Email configuration missing." 
+          ? "The contact form is currently undergoing maintenance. Please try again later."
+          : "Could not send your message. Please check your connection and try again.",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
