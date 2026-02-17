@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -25,12 +24,9 @@ export const ContactForm = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Ensure user is authenticated anonymously for the security rules
   useEffect(() => {
     if (!user && auth) {
       signInAnonymously(auth).catch(err => {
-        // Errors during anonymous sign-in are logged but not shown to the user
-        // as they are typically transient network issues or configuration errors.
         console.error("Anonymous sign-in failed:", err);
       });
     }
@@ -39,7 +35,6 @@ export const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // 1. Required Field Validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       toast({
         variant: "destructive",
@@ -72,7 +67,6 @@ export const ContactForm = () => {
         timestamp: serverTimestamp(),
       };
 
-      // 2. Firestore mutation (non-blocking)
       setDoc(newDocRef, payload)
         .catch(async (serverError) => {
           const permissionError = new FirestorePermissionError({
@@ -83,16 +77,12 @@ export const ContactForm = () => {
           errorEmitter.emit('permission-error', permissionError);
         });
 
-      // 3. EmailJS notification
-      // These environment variables must be defined in your .env file
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '';
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '';
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '';
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
       if (!serviceId || !templateId || !publicKey) {
-        console.error("EmailJS configuration missing in environment variables.");
-        // We still show an error to the user if the email can't be sent
-        throw new Error("Email configuration missing.");
+        throw new Error("EmailJS configuration missing in environment variables.");
       }
 
       await emailjs.send(
@@ -107,7 +97,6 @@ export const ContactForm = () => {
         publicKey
       );
 
-      // 4. Success handling: Show message and clear form only after email is sent
       toast({
         title: "Success!",
         description: "Your message has been sent successfully!",
@@ -119,9 +108,7 @@ export const ContactForm = () => {
       toast({
         variant: "destructive",
         title: "Submission Failed",
-        description: error.message === "Email configuration missing." 
-          ? "The contact form is currently undergoing maintenance. Please try again later."
-          : "Could not send your message. Please check your connection and try again.",
+        description: error.message || "Could not send your message. Please check your connection.",
       });
     } finally {
       setIsSubmitting(false);
@@ -154,34 +141,31 @@ export const ContactForm = () => {
         </div>
 
         <div className="glass-card bg-white/[0.03] backdrop-blur-2xl p-8 md:p-12 rounded-[2rem] border border-white/10 shadow-[0_20px_50px_-20px_rgba(124,58,237,0.3)] relative group">
-          <div className="absolute inset-0 rounded-[2rem] border border-gradient-to-r from-primary/20 to-accent/20 pointer-events-none opacity-50" />
-          
           <form onSubmit={handleSubmit} className="space-y-8">
             <div className="space-y-6">
               <div className="space-y-2 group/input">
-                <Label htmlFor="name" className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase ml-1 transition-colors group-focus-within/input:text-primary">
+                <Label htmlFor="name" className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase ml-1">
                   Your Name
                 </Label>
                 <div className="relative">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within/input:text-primary transition-colors" />
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     id="name"
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="John Doe"
                     disabled={isSubmitting}
-                    autoComplete="name"
-                    className="h-14 pl-12 bg-black/40 border-white/5 focus:border-primary/50 focus:ring-primary/20 rounded-2xl transition-all duration-300 hover:bg-black/60 group-focus-within/input:scale-[1.01] group-focus-within/input:shadow-[0_0_20px_-5px_rgba(124,58,237,0.3)]"
+                    className="h-14 pl-12 bg-black/40 border-white/5 focus:border-primary/50 rounded-2xl"
                   />
                 </div>
               </div>
 
               <div className="space-y-2 group/input">
-                <Label htmlFor="email" className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase ml-1 transition-colors group-focus-within/input:text-accent">
+                <Label htmlFor="email" className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase ml-1">
                   Email Address
                 </Label>
                 <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within/input:text-accent transition-colors" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     id="email"
                     type="email"
@@ -189,25 +173,24 @@ export const ContactForm = () => {
                     onChange={handleChange}
                     placeholder="john@example.com"
                     disabled={isSubmitting}
-                    autoComplete="email"
-                    className="h-14 pl-12 bg-black/40 border-white/5 focus:border-accent/50 focus:ring-accent/20 rounded-2xl transition-all duration-300 hover:bg-black/60 group-focus-within/input:scale-[1.01] group-focus-within/input:shadow-[0_0_20px_-5px_rgba(0,255,255,0.2)]"
+                    className="h-14 pl-12 bg-black/40 border-white/5 focus:border-accent/50 rounded-2xl"
                   />
                 </div>
               </div>
 
               <div className="space-y-2 group/input">
-                <Label htmlFor="message" className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase ml-1 transition-colors group-focus-within/input:text-primary">
+                <Label htmlFor="message" className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase ml-1">
                   Message
                 </Label>
                 <div className="relative">
-                  <MessageSquare className="absolute left-4 top-6 w-4 h-4 text-muted-foreground group-focus-within/input:text-primary transition-colors" />
+                  <MessageSquare className="absolute left-4 top-6 w-4 h-4 text-muted-foreground" />
                   <Textarea
                     id="message"
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Tell me about your project..."
                     disabled={isSubmitting}
-                    className="min-h-[150px] pl-12 pt-5 bg-black/40 border-white/5 focus:border-primary/50 focus:ring-primary/20 rounded-[1.5rem] transition-all duration-300 hover:bg-black/60 group-focus-within/input:scale-[1.01] group-focus-within/input:shadow-[0_0_20px_-5px_rgba(124,58,237,0.3)]"
+                    className="min-h-[150px] pl-12 pt-5 bg-black/40 border-white/5 focus:border-primary/50 rounded-[1.5rem]"
                   />
                 </div>
               </div>
@@ -216,7 +199,7 @@ export const ContactForm = () => {
             <Button 
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-14 rounded-2xl bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-500 text-white font-bold text-lg group transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(124,58,237,0.6)] active:scale-95"
+              className="w-full h-14 rounded-2xl bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-500 text-white font-bold text-lg transition-all"
             >
               {isSubmitting ? (
                 <>
@@ -226,7 +209,7 @@ export const ContactForm = () => {
               ) : (
                 <>
                   Send Message
-                  <Send className="ml-2 w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  <Send className="ml-2 w-5 h-5" />
                 </>
               )}
             </Button>
