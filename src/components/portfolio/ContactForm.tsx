@@ -27,7 +27,7 @@ export const ContactForm = () => {
   useEffect(() => {
     if (!user && auth) {
       signInAnonymously(auth).catch(err => {
-        // Silently handle or log initialization error
+        // Silently handle auth initialization
       });
     }
   }, [user, auth]);
@@ -67,7 +67,7 @@ export const ContactForm = () => {
         timestamp: serverTimestamp(),
       };
 
-      // Save to Firestore (Non-blocking update pattern)
+      // Save to Firestore (Non-blocking)
       setDoc(newDocRef, payload)
         .catch(async (serverError) => {
           const permissionError = new FirestorePermissionError({
@@ -78,13 +78,13 @@ export const ContactForm = () => {
           errorEmitter.emit('permission-error', permissionError);
         });
 
-      // EmailJS configuration
+      // EmailJS configuration from environment variables
       const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
       const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
       const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-      if (!serviceId || !templateId || !publicKey || serviceId === 'your_service_id') {
-        throw new Error("EmailJS configuration missing or using placeholders in .env.local.");
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error("EmailJS configuration missing. Please ensure variables are set in .env.");
       }
 
       // Send email via EmailJS
