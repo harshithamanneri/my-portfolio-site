@@ -63,7 +63,7 @@ export const Hero = () => {
           <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-4 pt-4">
             <Button asChild size="lg" className="rounded-2xl px-8 h-14 bg-primary hover:bg-primary/90 text-white font-bold group shadow-[0_10px_30px_-10px_rgba(124,58,237,0.5)] transition-all">
               <a 
-                href="https://ik.imagekit.io/cgkpgpdr2/cv.pdf" 
+                href="https://ik.imagekit.io/cgkpgpdr2/Resume.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 download="Harshitha_Manneri_Resume.pdf"
