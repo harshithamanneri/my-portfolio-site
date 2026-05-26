@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -14,7 +13,7 @@ import { signInAnonymously } from 'firebase/auth';
 import { useToast } from '@/hooks/use-toast';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 
 export const ContactForm = () => {
   const firestore = useFirestore();
